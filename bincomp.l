@@ -15,7 +15,7 @@ int atoui_hex(const char *str);
 0[xX][0-9A-Fa-f]+			    { yylval.num = atoui_hex(yytext); return Num; }
 [0-9A-Fa-f]+h			    	{ yylval.num = atoui_hex(yytext); return Num; }
 
-"mov" 							{ printf("mov "); return Mov; }
+"mov" 							{ return Mov; }
 "je" 							{ return Je ; }
 "jne" 							{ return Jne; }
 "jl" 							{ return Jl ; }
@@ -23,7 +23,7 @@ int atoui_hex(const char *str);
 "jg" 							{ return Jg ; }
 "jge" 							{ return Jge; }
 "jmp" 							{ return Jmp; }
-"ret" 							{ printf("ret "); return Ret; }
+"ret" 							{ return Ret; }
 "cmp" 							{ return Cmp; }
 "tst" 							{ return Tst; }
 "add" 							{ return Add; }
@@ -49,7 +49,7 @@ int atoui_hex(const char *str);
 
 [a-zA-Z_.][0-9a-zA-Z_.]* 		{ yylval.str = strdup(yytext); return Mark; }
 
-[-+.,\[\]]						{ return yytext[0]; }
+[-+,\[\]]						{ return yytext[0]; }
 [\n]							{ printf("\n"); yylineno++; }
 [ \t\r]							{  }
 .								{ yyerror("unexpected char"); printf("%c", *yytext); return 0; }
